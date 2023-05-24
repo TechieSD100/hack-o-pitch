@@ -1,0 +1,16 @@
+Flask
+Flask-Migrate
+Flask-SQLAlchemy
+Flask-Security-Too
+flask_wtf
+flask-cors
+flask-restful
+psycopg2
+python-dotenv
+SQLAlchemy
+flask-mqtt
+flask-socketio
+flask-bootstrap
+bleach
+gunicorn==20.1.0
+eventlet==0.30.2

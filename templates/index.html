@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+body {
+  min-height: 40rem;
+  padding-top: 4.5rem;}
+a :hover{
+    color: #FFFFFF;
+}
+
+</style>
+{% endblock %}
+{% block body %}
+<!-- Sidebar -->
+<div
+class="offcanvas offcanvas-top bg-primary text-white z-1"
+tabindex="0"
+data-bs-backdrop="false"
+id="offcanvasTop"
+aria-labelledby="offcanvasTopLabel"
+style="height: min-content; top: 56px"
+>
+<ul class="nav nav-tabs bg-primary navbar-dark">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-white" href="#">Dashboard</a>
+  </li>
+  <li class="nav-item">
+      <a href="{{ url_for('create_device') }}" class="nav-link text-white">Add new device</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link text-white">Disabled</a>
+  </li>
+</ul>
+</div>
+    <!-- End sidebar -->
+
+{% block content %}{% endblock %}
+ </div>
+ {% endblock %}

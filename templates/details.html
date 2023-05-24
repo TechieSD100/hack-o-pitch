@@ -1,0 +1,131 @@
+{% extends "index.html" %}
+{% block title %}Device Details{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+<div class="d-flex flex-column bg-white p-5 border border-primary rounded align-content-center">
+  <h1 class="text-center"> Device Name: {{ device.name }}</h1>
+  <hr class="hr hr-blurry"/>
+  <div class="container">
+    <div class="row w-75">
+      <div class="col-md-6 ">
+        <p class="fw-bold">Room Name</p>
+      </div>
+      <div class="col-md-6">
+        <p class="fw-bold">: {{ device.room_name }}</p>
+      </div>
+    </div>
+    <div class="row w-75">
+      <div class="col-md-6">
+        <p class="fw-bold"> Number of Appliance</p>
+      </div>
+      <div class="col-md-6">
+        <p class="fw-bold">: {{ device.device_appliance|length }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row w-100">
+    <button type="button" class="btn btn-success mt-2 ms-2"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Update appliances
+    </button>
+    
+    <button type="button" class="btn btn-success mt-2 ms-2"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Update appliances
+    </button>
+    
+    <button type="button" class="btn btn-success mt-2 ms-2"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Update appliances
+    </button>
+  </div>
+  
+
+  <!-- Button trigger modal -->
+  {% if appliances %}
+ <form action="/change/{{device.id}}" id="appliance_change" method="POST">
+  <table class="table mt-3">
+    <thead>
+      <tr>
+        <th><p class="text-center mb-1">Name</p></th>
+        <th><p class="text-center mb-1">Status</p></th>
+        <th><p class="text-center mb-1">Mode</p></th>
+        <th><p class="text-center mb-1">Time Setting</p></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for appliance in appliances %}
+      <tr>
+        <td>{{ appliance.name }}</td>
+        <td> 
+          <div class="d-flex flex-row justify-content-center">
+            <label class="ms-1 me-2">off</label>
+            <div class="form-check form-switch" disabled>
+              <input class="form-check-input" type="checkbox" role="switch" {%if appliance.mode%}disabled{%endif%}
+              {%if appliance.value %}checked{%endif%} name="app{{loop.index}}_status"/>
+              <label>on</label>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex flex-row justify-content-center">
+            <p class="ms-1 me-2">manual</p>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" {% if appliance.mode %}checked{%endif%} name="app{{loop.index}}_mode" />
+              <label class="form-check-label" for="flexSwitchCheckDefault">smart</label>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex flex-row justify-content-center">
+            <input type="text" id="duration" value={{appliance.mode_time}} name="app{{loop.index}}_time">
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary" id="change_submit" hidden>Submit</button>
+</form>
+  {% else %}
+  <p>No appliances of this device yet.</p>
+  {% endif %}
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdroplabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 "  id="Examplemodallabel" >Update Appliance</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="">
+          <div class="my-3">
+            <input type="text" class="form-control" placeholder="Appliance Name">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Appliance Type">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="room name">
+          </div>
+        </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+   $('input').change(function(){
+       $('#change_submit').click();
+    });
+});
+// $("#duration*").durationPicker();
+</script>
+{% endblock %}
