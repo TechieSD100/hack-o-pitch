@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+{% block content %}
+<!--
+<button class="add-button">Install</button>
+<span class="offline-notification">Offline</span>-->
+
+<!-- Product Features Section -->
+
+  
+
+<!-- Main Content -->
+
+{% if True %}
+{% for device in devices %}
+
+  <!-- <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <img src="product1.jpg" class="card-img-top" alt="Product 1">
+        <div class="card-body">
+          <h5 class="card-title">{{ device.name }}</h5>
+          <p class="card-text">Location:{{ device.location }}</p>
+          <button class="btn btn-sm btn-primary" href="{{ url_for('details', id=device.id) }}">Details</button>
+        </div>
+      </div>
+    </div> -->
+    <div class="container" >
+      <div class="card ">
+          <div class="imgBx">
+            {% if "Living" in device.room_name %}  
+            <img src="https://img.freepik.com/free-photo/sofa-living-room-with-copy-space_43614-869.jpg">
+            {% elif "bed" in device.room_name %}
+            <img src="https://st.hzcdn.com/simgs/bd513d7101790ea6_14-3453/home-design.jpg" alt="Bed Room Image">
+            {% elif "Dining" in device.room_name %}
+            <img src="https://media.designcafe.com/wp-content/uploads/2021/09/29221456/dining-room-interior-with-white-marble-top-and-dining-chairs-with-crockery-unit.jpg"
+                alt="Dining Room Image">
+            {% elif "Kitchen" in device.room_name %}
+            <img src="https://img.freepik.com/free-photo/empty-modern-room-with-furniture_23-2149178335.jpg?" alt="Kitchen Image">
+            {% else %}
+            <img src="https://img.freepik.com/premium-vector/living-corner-house-morning_46176-285.jpg"
+                alt="Living Room Image">
+            {% endif %}
+
+              <h4 id="room1">{{ device.room_name }}</h4>
+              <h6 >Device name: {{ device.name }}</h6>
+
+          </div>
+          <div class="content">
+            <a class="buttons w-100 mt-1" href="/device/update/{{device.id}}">Rename Room</a>
+            <a class="buttons w-100" href="/details/{{device.id}}">Control Devices</a>
+          </div>
+
+      </div>
+      <a href="/device/delete/{{device.id}}"><img src="/static/images/delete.png" width="30px"></a>
+
+    </div>
+{% endfor %}
+{% else %}
+<p>No devices exist. Select Add new device to add one.</p>
+{% endif %}
+
+
+</div>
+<link rel="stylesheet" href="style.css">
+
+{% endblock %}

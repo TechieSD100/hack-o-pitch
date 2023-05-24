@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block body %} 
+<div class="d-flex flex-column bg-white p-5 border border-primary rounded align-content-center"  style="margin-top: 120px;"> 
+  <h1 class="fw-bold">Welcome to EnvisionIoT App</h1>
+  <hr class="hr hr-blurry" />  
+  <form class="signupform" style="position: static;" action="/signup" method="post">
+    <h3 class="text-center mb-4">New User Signup</h3>
+    <input class="form-control" type="text" placeholder="Username" name="username" required><br>
+    <input class="form-control" type="email" placeholder="Email Address" name="email" required><br>
+    <input class="form-control" type="text" placeholder="Enter Your City" name="Room name" required><br>
+    <input class="form-control" type="password" placeholder="Password" name="password" required><br>
+    <input class="btn btn-primary mt-2 mb-5" type="submit" value="Signup"><br>
+    <h4 style="font-family: Arial, Helvetica, sans-serif;color:red;">{{error}}</h4>
+    Already have an account?<a href="/">Login</a>
+  </form> 
+</div> 
+{% endblock %}
