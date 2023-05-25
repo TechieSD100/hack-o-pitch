@@ -167,10 +167,10 @@ def add_device():
         device.user_id=user_id
         db.session.add(device)
         db.session.commit()
-        app1=Appliance(name="light1",type="digital",device_id=device.id)
-        app2=Appliance(name="light2",type="digital",device_id=device.id)
-        app3=Appliance(name="socket",type="digital",device_id=device.id)
-        app4=Appliance(name="fan",type="analog",device_id=device.id)
+        app1=Appliance(name="Light 1",type="digital",device_id=device.id)
+        app2=Appliance(name="Light 2",type="digital",device_id=device.id)
+        app3=Appliance(name="Socket",type="digital",device_id=device.id)
+        app4=Appliance(name="Fan",type="analog",device_id=device.id)
         db.session.add(app1)
         db.session.add(app2)
         db.session.add(app3)
@@ -229,6 +229,21 @@ def add_appliance(id):
         db.session.add(appliance)
         db.session.commit()
     return redirect(url_for('details', id=id))
+
+@app.route('/appliance/update/{{appliance.id}}', methods=['GET','POST'])
+def update_appliance(id):
+    if request.method=='POST':
+        appliance = Appliance.query.get(id)
+        if appliance:
+            appliance.name = request.values.get('name')
+            appliance.type = request.values.get('type')
+            db.session.commit()
+            return redirect(url_for('details', id=appliance.id))
+        else:
+            return render_template('errors.html',error_message="device not found")
+    else:  
+        appliance = Appliance.query.get(id)
+        return render_template('details.html', Appliance=appliance)
 
 @app.route('/change/<int:id>', methods=['POST'])
 def change_appliances(id):
