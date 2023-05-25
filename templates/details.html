@@ -35,7 +35,7 @@
           </button>
           
 
-          <a class="navbar-brand align-self-center ms-2" href="#"
+          <a class="navbar-brand align-self-center ms-2" href="/"
             >Envision IOT</a
           >
         </div>
@@ -164,7 +164,7 @@
     <div class="sub">Regulator</div>
   </div>
 
-
+  <form action="/change/{{device.id}}" id="appliance_change" method="POST">
   <div id="details-section">
   {% for appliance in device.device_appliance %} {% if "Light 1" in appliance.name %}
   <div class="appliances1" id="light1">
@@ -180,13 +180,15 @@
           type="checkbox"
           id="on/off1"
           class="on-off"
+          name="app1_status"
+          {% if appliance.status == 1 %} checked="" {% endif %}
           onclick="lightswitch1()"
         />
         <span class="check"></span>
       </label>
       <div class="space"></div>
       <!--This checkbox input below controls the auto & manual mode of light 1-->
-      <input type="checkbox" id="smart/manual1" class="mode_control" />
+      <input type="checkbox" id="smart/manual1" name="app1_mode" class="mode_control" />
       <img
         src="/static/img/MANUAL_MODE.png"
         id="manual1"
@@ -202,7 +204,7 @@
         onclick="toggleImage1()"
       />
   
-      <script>
+      <input type="text" name="app1_mode_time" value="{{ appliance.mode_time }}" placeholder="Time"><script>
         function toggleImage1() {
           var image1 = document.getElementById("manual1");
           var image2 = document.getElementById("smart1");
@@ -235,13 +237,15 @@
           type="checkbox"
           id="on/off2"
           class="on-off"
+          name="app2_status"
+          {% if appliance.status==1 %} checked {% endif %}
           onclick="lightswitch2()"
         />
         <span class="check"></span>
       </label>
       <div class="space"></div>
       <!--This checkbox input below controls the auto & manual mode of light 2-->
-      <input type="checkbox" id="smart/manual2" class="mode_control" />
+      <input type="checkbox" id="smart/manual2" name="app2_mode" class="mode_control" />
       <img
         src="/static/img/MANUAL_MODE.png"
         id="manual2"
@@ -257,7 +261,7 @@
         onclick="toggleImage2()"
       />
   
-      <script>
+      <input type="text" name="app2_mode_time"><script>
         function toggleImage2() {
           var image1 = document.getElementById("manual2");
           var image2 = document.getElementById("smart2");
@@ -291,13 +295,15 @@
           type="checkbox"
           id="on/off3"
           class="on-off"
+          name="app3_status"
+          {% if appliance.status==1 %} checked {% endif %}
           onclick="fanswitch()"
         />
         <span class="check"></span>
       </label>
       <div class="space"></div>
       <!--This checkbox input below controls the auto & manual mode of the fan-->
-      <input type="checkbox" id="smart/manual3" class="mode_control" />
+      <input type="checkbox" id="smart/manual3" name="app3_mode" class="mode_control" />
       <img
         src="/static/img/MANUAL_MODE.png"
         id="manual3"
@@ -312,7 +318,7 @@
         alt="smart"
         onclick="toggleImage3()"
       />
-      <script>
+      <input type="text" name="app3_mode_time"><script>
         function toggleImage3() {
           var image1 = document.getElementById("manual3");
           var image2 = document.getElementById("smart3");
@@ -367,6 +373,8 @@
           type="checkbox"
           id="on/off4"
           class="on-off"
+          name="app4_status"
+          {% if appliance.status==1 %} checked {% endif %}
           onclick="socketswitch()"
         />
         <span class="check"></span>
@@ -388,7 +396,7 @@
         alt="smart"
         onclick="toggleImage4()"
       />
-      <script>
+      <input type="String" name="app4_mode_time"><script>
         function toggleImage4() {
           var image1 = document.getElementById("manual4");
           var image2 = document.getElementById("smart4");
@@ -410,7 +418,7 @@
   {% endif %} {% endfor %}
   
   </div>
-  <script>
+<script>
     function lightswitch1() {
       var checkbox = document.getElementById("on/off1");
       var image = document.getElementById("light1off");
@@ -493,6 +501,9 @@
       });
     }
   </script>
+
+  <button type="submit" class="btn btn-primary" id="change_submit" >Submit</button>
+  </form>
   </body>
   
 </html>
